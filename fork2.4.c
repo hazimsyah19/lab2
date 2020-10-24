@@ -4,30 +4,34 @@
 #include<sys/wait.h>
 #include<unistd.h>
 
+void userInput(){
+  char name[20];
+  printf("Please enter your name: ");
+  scanf("%[^\n]&*c",name);
+  printf("Your name : %s \n", name);
+  printf("\n");
+}
+
+void jobParent(){
+ printf("JOB IS DONE \n");
+}
 
 int main(){
-void parentTask(){
-  printf("JOB IS DONE");
-}
-for (int i =0 ;i <5;i++){
+//name = userInput();
+for (int i =0 ;i <4;i++){ 
    pid_t pid = fork();
-   char str[20];
 
-   if (pid == 0){
-     printf("Child process => PPID%d,PID=%d \n",getppid(),getpid());
+   if (pid == 0){    	   
+     //printf("Child process => PPID%d,PID=%d \n",getppid(),getpid());
+     userInput();
      exit(0);
     }
-   else if(i == 3){
-   printf("Enter your name");
-   scanf("%[^\n]%*c",str);
-   printf("Your name is %s\n",str);
-   }
    else {
-     printf("Parent process => PID=%d \n",getpid());
-     printf("Waiting for child processes to finish.... \n");
+     //printf("Parent process => PID=%d \n",getpid());
+     //printf("Waiting for child processes to finish.... \n");
      wait(NULL);
-     printf("child process finished \n");
-   }
+   } 
  }
+jobParent();  
 return EXIT_SUCCESS;
 }
